@@ -1,0 +1,45 @@
+public class AssigningEmail {
+    public static void sendEmailmsg(List<Assignment__c> assRec) {
+        List<messaging.SingleEmailMessage> myVar = new List<messaging.SingleEmailMessage>();
+        
+        // Fetch technicians
+        Map<id, Technician__c> technicians = new Map<id, Technician__c>(
+            [SELECT Id, Phone__c, Location__c, Skills__c, Name__c, Email__c, Availibility__c FROM Technician__c]
+        );
+        
+        try {
+            // Loop through assignment records
+            for (Assignment__c con : assRec) {
+                if (con.Technician_ID__c != null) {
+                    // Ensure technician exists in the map
+                    Technician__c technician = technicians.get(con.Technician_ID__c);
+                    if (technician != null && technician.Email__c != null) {
+                        // Create email message
+                        messaging.SingleEmailMessage mail = new messaging.SingleEmailMessage();
+                        List<String> sendTo = new List<String>();
+                        sendTo.add(technician.Email__c); // Add technician's email to sendTo list
+                        mail.setToAddresses(sendTo);
+                        mail.setSubject('WorkOrder Assignment');
+                        
+                        // Construct the email body
+                        String body = 'The following WorkOrder has been assigned to you: \n' + con.Name;
+                        mail.setHTMLbody(body); // Use HTML body for better formatting
+                        
+                        // Add email to list
+                        myVar.add(mail);
+                    } else {
+                        System.debug('Technician email is not available for Technician ID: ' + con.Technician_ID__c);
+                    }
+                }
+            }
+            
+            // Send emails
+            if (!myVar.isEmpty()) {
+                Messaging.sendEmail(myVar);
+            }
+        } catch (Exception e) {
+            // Handle the error and log it for debugging
+            System.debug('Error -----> ' + e.getMessage());
+        }
+    }
+}
