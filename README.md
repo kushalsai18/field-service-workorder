@@ -1,1 +1,1 @@
-Field-Service-WorkOrder-Optimization Document: [https://docs.google.com/document/d/1gEDLJbrUnMlcXSdA6s9WqJBtNZE0q1Mt/edit?usp=sharing&ouid=116429439846336145263&rtpof=true&sd=true](https://drive.google.com/file/d/1DUSME1_4uabVjlmsZ1drX9NTqnXAi9Fb/view?usp=sharing)
+Field-Service-WorkOrder-Optimization Document: https://drive.google.com/file/d/1oWuaZI-uFVjdmlFBwM-fN_prEEV94B_b/view?usp=sharing
